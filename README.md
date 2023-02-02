@@ -1,4 +1,4 @@
-## Project-3
+## Project-3 Proposal
 
 #Los Angeles (or major cities) Crime Data and Trend Over Time (over decades)
 
