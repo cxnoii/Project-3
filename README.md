@@ -13,6 +13,6 @@ Tracking Crime data is crucial for law enforcement agencies and citizens. There 
 
 Different interactive features include:
 - An overall view of Los Angeles (depending on data we can expand to state or country).
--Historic and current criminal reports.
--Multiple layers based on the category of the report.
--Chart showing the count of cases by cities
+- Historic and current criminal reports.
+- Multiple layers based on the category of the report.
+- Chart showing the count of cases by cities
