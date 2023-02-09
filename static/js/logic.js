@@ -10,9 +10,9 @@ function main() {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
     
-    let filepath_a = "../../Data/criminal_homicide_2010_2019.json";
-    // let filepath_b = "/Project-3/Data/criminal_homicide_2010_2019.json";
-    // let filepath_b = "Project3/Project-3/Data/criminal_homicide_2010_2019.json";
+    //let filepath_a = "../../Data/criminal_homicide_2010_2019.json";
+    //let filepath_a = "/Project-3/Data/criminal_homicide_2010_2019.json";
+    let filepath_a = "Project-3/Data/criminal_homicide_2010_2019.json";
 
     d3.json(filepath_a).then(function (x) {
         console.log(x);
@@ -44,6 +44,17 @@ function drawMarkers(homicides) {
     createMap(cases);
 }
 
+//function that will differentiate the districts in the map
+function chooseColor(district) {
+    if (district == "1") return "yellow";
+    else if (district == "2") return "red";
+    else if (district == "3") return "orange";
+    else if (district == "4") return "green";
+    else if (district == "5") return "purple";
+    //add more else if for remaining districts
+    else return "black";
+  }
+  
 
 function createMap(cases) {
     console.log('datapassed into createMap', cases);
@@ -62,7 +73,15 @@ function createMap(cases) {
     var overlay = {
         "Homicide Cases": cases,
         "District Boundaries": L.geoJSON(districts_geojson, {
-            style: {color: 'firebrick'}
+            style: function(feature) {
+                return {
+                    color: 'firebrick',
+                // Call the chooseColor() function to decide which color
+                    fillColor: chooseColor(feature.properties.district),
+                    fillOpacity: 0.5,
+                    weight: 1.5
+                };
+            }
         })
     };
 
