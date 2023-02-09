@@ -12,7 +12,7 @@ function main() {
     
     //let filepath_a = "../../Data/criminal_homicide_2010_2019.json";
     //let filepath_a = "/Project-3/Data/criminal_homicide_2010_2019.json";
-    let filepath_a = "Project-3/Data/criminal_homicide_2010_2019.json";
+    let filepath_a = "/Project3/Project-3/Data/criminal_homicide_2010_2019.json";
 
     d3.json(filepath_a).then(function (x) {
         console.log(x);
@@ -48,11 +48,19 @@ function drawMarkers(homicides) {
 function chooseColor(district) {
     if (district == "1") return "yellow";
     else if (district == "2") return "red";
-    else if (district == "3") return "orange";
+    else if (district == "3") return "black";
     else if (district == "4") return "green";
     else if (district == "5") return "purple";
-    //add more else if for remaining districts
-    else return "black";
+    else if (district == "6") return "blue";
+    else if (district == "7") return "lightgoldenrodyellow";
+    else if (district == "8") return "grey";
+    else if (district == "9") return "aqua";
+    else if (district == "10") return "chocolate";
+    else if (district == "11") return "olive";
+    else if (district == "12") return "tomato";
+    else if (district == "13") return "gold";
+    else if (district == "14") return "hotpink";
+    else return "orange";
   }
   
 
@@ -81,7 +89,34 @@ function createMap(cases) {
                     fillOpacity: 0.5,
                     weight: 1.5
                 };
-            }
+            },
+            onEachFeature: function(feature, layer) {
+                // Set the mouse events to change the map styling.
+                layer.on({
+                  // When a user's mouse cursor touches a map feature, the mouseover event calls this function, which makes that feature's opacity change to 90% so that it stands out.
+                  mouseover: function(event) {
+                    layer = event.target;
+                    layer.setStyle({
+                      fillOpacity: 0.9
+                    });
+                  },
+                  // When the cursor no longer hovers over a map feature (that is, when the mouseout event occurs), the feature's opacity reverts back to 50%.
+                  mouseout: function(event) {
+                    layer = event.target;
+                    layer.setStyle({
+                      fillOpacity: 0.5
+                    });
+                  },
+                  // When a feature (neighborhood) is clicked, it enlarges to fit the screen.
+                  click: function(event) {
+                    map.fitBounds(event.target.getBounds());
+                  }
+                });
+                // Giving each feature a popup with information that's relevant to it
+                layer.bindPopup("<h1>District " + feature.properties.district + "</h1>");
+          
+              }
+          
         })
     };
 
