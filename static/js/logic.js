@@ -10,7 +10,7 @@ function main() {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    d3.json('../../population_data/criminal_homicide_2010_2019.json').then(function (x) {
+    d3.json('../../Data/criminal_homicide_2010_2019.json').then(function (x) {
         console.log(x);
         drawMarkers(x)
         })
