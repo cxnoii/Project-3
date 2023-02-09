@@ -9,29 +9,38 @@ function main() {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+    
+    let filepath_a = "../../Data/criminal_homicide_2010_2019.json";
+    let filepath_b = "/Project-3/Data/criminal_homicide_2010_2019.json";
 
-    d3.json('/Project-3/Data/criminal_homicide_2010_2019.json').then(function (x) {
+    d3.json(filepath_a).then(function (x) {
         console.log(x);
-        drawMarkers(x)
+        drawMarkers(x);
         })
     }
 
 
 function drawMarkers(homicides) {
+    console.log("data passed into drawMarkers", homicides)
     var cases = L.markerClusterGroup();
 
 //looping through each object in array
     for (var i =0; i<homicides.length; i++) {
-        var lat = homicides[i]["LAT"]
-        var lng = homicides[i]["LON"]
+        var lat = homicides[i]["LAT"];
+        var lng = homicides[i]["LON"];
 
         //creating markers for each object
         var marker = L.marker([lat,lng])
+        .bindPopup(`<b>${homicides[i]['LOCATION']}</b> </br> <hr>
+            Date Occured: ${homicides[i]['DATE OCC']} </br>
+            Victim: ${homicides[i]['Vict Age']} / ${homicides[i]['Vict Sex']} </br>
+            Status: ${homicides[i]['Status Desc']}`
+            );
 
-        cases.addLayer(marker)
+        cases.addLayer(marker);
     }
     // initializing a layer group for the array of circle markers and passing it into the createMap function
-    createMap(cases)
+    createMap(cases);
 }
 
 
@@ -48,10 +57,6 @@ function createMap(cases) {
         subdomains:['mt0','mt1','mt2','mt3']
     });
     
-    var topograph = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-	maxZoom: 17,
-	attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-    });
 
     var overlay = {
         "Homicide Cases": cases,
@@ -64,7 +69,6 @@ function createMap(cases) {
     var baseMaps = {
         "Street": street,
         "Satellite": googleSat,
-        "Topograhic": topograph
         };
 
 // adding a layer control panel
