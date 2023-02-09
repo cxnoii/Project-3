@@ -9,8 +9,11 @@ function main() {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-
-    d3.json('../../Data/criminal_homicide_2010_2019.json').then(function (x) {
+    
+    let filepath_a = "../../Data/criminal_homicide_2010_2019.json"
+    let filepath_b = "/Project-3/Data/criminal_homicide_2010_2019.json"
+    
+    d3.json(filepath_a).then(function (x) {
         console.log(x);
         drawMarkers(x)
         })
@@ -48,10 +51,6 @@ function createMap(cases) {
         subdomains:['mt0','mt1','mt2','mt3']
     });
     
-    var topograph = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-	maxZoom: 17,
-	attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-    });
 
     var overlay = {
         "Homicide Cases": cases,
@@ -64,7 +63,6 @@ function createMap(cases) {
     var baseMaps = {
         "Street": street,
         "Satellite": googleSat,
-        "Topograhic": topograph
         };
 
 // adding a layer control panel
