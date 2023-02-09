@@ -46,7 +46,7 @@ function drawMarkers(homicides) {
 
 //function that will differentiate the districts in the map
 function chooseColor(district) {
-    if (district == "1") return "yellow";
+    if (district == "1") return "aqua";
     else if (district == "2") return "red";
     else if (district == "3") return "black";
     else if (district == "4") return "green";
@@ -54,7 +54,7 @@ function chooseColor(district) {
     else if (district == "6") return "blue";
     else if (district == "7") return "lightgoldenrodyellow";
     else if (district == "8") return "grey";
-    else if (district == "9") return "aqua";
+    else if (district == "9") return "yellow";
     else if (district == "10") return "chocolate";
     else if (district == "11") return "olive";
     else if (district == "12") return "tomato";
@@ -100,14 +100,14 @@ function createMap(cases) {
                       fillOpacity: 0.9
                     });
                   },
-                  // When the cursor no longer hovers over a map feature (that is, when the mouseout event occurs), the feature's opacity reverts back to 50%.
+                  // When the cursor no longer hovers over a map feature the feature's opacity reverts back to 50%.
                   mouseout: function(event) {
                     layer = event.target;
                     layer.setStyle({
                       fillOpacity: 0.5
                     });
                   },
-                  // When a feature (neighborhood) is clicked, it enlarges to fit the screen.
+                  // When a district is clicked, it enlarges to fit the screen.
                   click: function(event) {
                     map.fitBounds(event.target.getBounds());
                   }
