@@ -12,6 +12,7 @@ function main() {
     
     let filepath_a = "../../Data/criminal_homicide_2010_2019.json";
     // let filepath_b = "/Project-3/Data/criminal_homicide_2010_2019.json";
+    // let filepath_b = "Project3/Project-3/Data/criminal_homicide_2010_2019.json";
 
     d3.json(filepath_a).then(function (x) {
         console.log(x);
