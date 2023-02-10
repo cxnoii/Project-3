@@ -4,44 +4,90 @@ var map = L.map("map", {
     zoom: 10
 });
 
+var overlay = {
+    "District Boundaries": L.geoJSON(districts_geojson, {
+        style: function(feature) {
+            return {
+                color: 'firebrick',
+            // Call the chooseColor() function to decide which color
+                fillColor: chooseColor(feature.properties.district),
+                fillOpacity: 0.5,
+                weight: 1.5
+            };
+        },
+        onEachFeature: function(feature, layer) {
+            // Set the mouse events to change the map styling.
+            layer.on({
+              // When a user's mouse cursor touches a map feature, the mouseover event calls this function, which makes that feature's opacity change to 90% so that it stands out.
+              mouseover: function(event) {
+                layer = event.target;
+                layer.setStyle({
+                  fillOpacity: 0.9
+                });
+              },
+              // When the cursor no longer hovers over a map feature the feature's opacity reverts back to 50%.
+              mouseout: function(event) {
+                layer = event.target;
+                layer.setStyle({
+                  fillOpacity: 0.5
+                });
+              },
+              // When a district is clicked, it enlarges to fit the screen.
+              click: function(event) {
+                map.fitBounds(event.target.getBounds());
+              }
+            });
+            // Giving each feature a popup with information that's relevant to it
+            layer.bindPopup("<h1>District " + feature.properties.district + "</h1>");
+      
+          }
+      
+    })
+};
 
 function main() {    
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
     
-    //let filepath_a = "../../Data/criminal_homicide_2010_2019.json";
-    //let filepath_a = "/Project-3/Data/criminal_homicide_2010_2019.json";
-    let filepath_a = "/Project3/Project-3/Data/criminal_homicide_2010_2019.json";
+    let filepath_a = "../../Data/criminal_homicide_2010_2019.json";
+    let filepath_b = "/Project-3/Data/criminal_homicide_2010_2019.json";
+    let filepath_c = "/Project3/Project-3/Data/criminal_homicide_2010_2019.json";
 
     d3.json(filepath_a).then(function (x) {
         console.log(x);
         drawMarkers(x);
         })
+
+    d3.json("../../Data/robbery_2010_2019.json").then(function (x) {
+        drawMarkers(x);
+        createMap();
+    })
     }
+    
 
-
-function drawMarkers(homicides) {
-    console.log("data passed into drawMarkers", homicides)
+function drawMarkers(crimes) {
+    console.log("data passed into drawMarkers", crimes)
     var cases = L.markerClusterGroup();
+    var crime_desc = crimes[0]["Crm Cd Desc"];
 
 //looping through each object in array
-    for (var i =0; i<homicides.length; i++) {
-        var lat = homicides[i]["LAT"];
-        var lng = homicides[i]["LON"];
+    for (var i =0; i<crimes.length; i++) {
+        var lat = crimes[i]["LAT"];
+        var lng = crimes[i]["LON"];
 
         //creating markers for each object
         var marker = L.marker([lat,lng])
-        .bindPopup(`<b>${homicides[i]['LOCATION']}</b> </br> <hr>
-            Date Occured: ${homicides[i]['DATE OCC']} </br>
-            Victim: ${homicides[i]['Vict Age']} / ${homicides[i]['Vict Sex']} </br>
-            Status: ${homicides[i]['Status Desc']}`
+        .bindPopup(`<b>${crimes[i]['LOCATION']}</b> </br> <hr>
+            Date Occured: ${crimes[i]['DATE OCC']} </br>
+            Victim: ${crimes[i]['Vict Age']} / ${crimes[i]['Vict Sex']} </br>
+            Status: ${crimes[i]['Status Desc']}`
             );
 
         cases.addLayer(marker);
     }
-    // initializing a layer group for the array of circle markers and passing it into the createMap function
-    createMap(cases);
+    // adds layer to overlay dictionary 
+    overlay[crime_desc] = cases;
 }
 
 //function that will differentiate the districts in the map
@@ -77,48 +123,6 @@ function createMap(cases) {
         subdomains:['mt0','mt1','mt2','mt3']
     });
     
-
-    var overlay = {
-        "Homicide Cases": cases,
-        "District Boundaries": L.geoJSON(districts_geojson, {
-            style: function(feature) {
-                return {
-                    color: 'firebrick',
-                // Call the chooseColor() function to decide which color
-                    fillColor: chooseColor(feature.properties.district),
-                    fillOpacity: 0.5,
-                    weight: 1.5
-                };
-            },
-            onEachFeature: function(feature, layer) {
-                // Set the mouse events to change the map styling.
-                layer.on({
-                  // When a user's mouse cursor touches a map feature, the mouseover event calls this function, which makes that feature's opacity change to 90% so that it stands out.
-                  mouseover: function(event) {
-                    layer = event.target;
-                    layer.setStyle({
-                      fillOpacity: 0.9
-                    });
-                  },
-                  // When the cursor no longer hovers over a map feature the feature's opacity reverts back to 50%.
-                  mouseout: function(event) {
-                    layer = event.target;
-                    layer.setStyle({
-                      fillOpacity: 0.5
-                    });
-                  },
-                  // When a district is clicked, it enlarges to fit the screen.
-                  click: function(event) {
-                    map.fitBounds(event.target.getBounds());
-                  }
-                });
-                // Giving each feature a popup with information that's relevant to it
-                layer.bindPopup("<h1>District " + feature.properties.district + "</h1>");
-          
-              }
-          
-        })
-    };
 
 //json object with all views
     var baseMaps = {
