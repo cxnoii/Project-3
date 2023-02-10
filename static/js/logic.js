@@ -60,10 +60,6 @@ function main() {
     
     d3.json("../../Data/robbery_2010_2019.json").then(function (x) {
         drawMarkers(x);
-    })
-
-    d3.json("../../Data/vehicle_stolen_2010_2019.json").then(function (x) {
-        drawMarkers(x);
         createMap();
     })
 
