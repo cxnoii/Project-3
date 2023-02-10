@@ -54,20 +54,20 @@ function main() {
     // let filepath_b = "/Project-3/Data/criminal_homicide_2010_2019.json";
     // let filepath_c = "/Project3/Project-3/Data/criminal_homicide_2010_2019.json";
 
-    d3.json(filepath_a).then(function (x) {
-        console.log(x);
+
+    d3.json("../../Data/criminal_homicide_2010_2019.json").then(function (x) {
         drawMarkers(x);
         })
-
+    
     d3.json("../../Data/robbery_2010_2019.json").then(function (x) {
         drawMarkers(x);
         createMap();
     })
+
     }
     
 
 function drawMarkers(crimes) {
-    console.log("data passed into drawMarkers", crimes)
     var cases = L.markerClusterGroup();
     var crime_desc = crimes[0]["Crm Cd Desc"];
 
@@ -110,9 +110,7 @@ function chooseColor(district) {
   }
   
 
-function createMap(cases) {
-    console.log('datapassed into createMap', cases);
-
+function createMap() {
     //creating different views 
     var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
