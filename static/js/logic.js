@@ -54,6 +54,7 @@ function main() {
     let filepath_b = "/Project-3/Data/criminal_homicide_2010_2019.json";
     let filepath_c = "/Project3/Project-3/Data/criminal_homicide_2010_2019.json";
 
+
     d3.json("../../Data/criminal_homicide_2010_2019.json").then(function (x) {
         drawMarkers(x);
         })
@@ -67,7 +68,6 @@ function main() {
     
 
 function drawMarkers(crimes) {
-    console.log("data passed into drawMarkers", crimes)
     var cases = L.markerClusterGroup();
     var crime_desc = crimes[0]["Crm Cd Desc"];
 
