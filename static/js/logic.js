@@ -65,7 +65,7 @@ var overlay = {
                     var foundCensus = getCensusByDistrict(feature.properties.district);
                     var foundMember = getMembersByDistrict(feature.properties.district);
 
-                    const popUpContent = "<h1>District " + feature.properties.district + "</h1><br><h2>2010 Population: " + foundCensus[0].Pop2010 + "<br>Council Member: " + foundMember[0].Name + "</h2>";
+                    const popUpContent = "<h2>District " + feature.properties.district + "</h2><br><h3>2010 Population: " + foundCensus[0].Pop2010 + "<br>Council Member: " + foundMember[0].Name + "</h3>";
 
                     // Giving each feature a popup with information that's relevant to it
                     layer.bindPopup(popUpContent);
