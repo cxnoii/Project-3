@@ -4,6 +4,8 @@ var map = L.map("map", {
     zoom: 10
 });
 
+
+
 var overlay = {
     "District Boundaries": L.geoJSON(districts_geojson, {
         style: function(feature) {
@@ -15,33 +17,63 @@ var overlay = {
                 weight: 1.5
             };
         },
+                
         onEachFeature: function(feature, layer) {
             // Set the mouse events to change the map styling.
             layer.on({
-              // When a user's mouse cursor touches a map feature, the mouseover event calls this function, which makes that feature's opacity change to 90% so that it stands out.
-              mouseover: function(event) {
+            // When a user's mouse cursor touches a map feature, the mouseover event calls this function, which makes that feature's opacity change to 90% so that it stands out.
+            mouseover: function(event) {
                 layer = event.target;
                 layer.setStyle({
-                  fillOpacity: 0.9
+                fillOpacity: 0.9
                 });
-              },
-              // When the cursor no longer hovers over a map feature the feature's opacity reverts back to 50%.
-              mouseout: function(event) {
+            },
+            // When the cursor no longer hovers over a map feature the feature's opacity reverts back to 50%.
+            mouseout: function(event) {
                 layer = event.target;
                 layer.setStyle({
-                  fillOpacity: 0.5
+                fillOpacity: 0.5
                 });
-              },
-              // When a district is clicked, it enlarges to fit the screen.
-              click: function(event) {
+            },
+            // When a district is clicked, it enlarges to fit the screen.
+            click: function(event) {
                 map.fitBounds(event.target.getBounds());
-              }
+            }
             });
-            // Giving each feature a popup with information that's relevant to it
-            layer.bindPopup("<h1>District " + feature.properties.district + "</h1>");
-      
-          }
-      
+            //BindPopup contents via conditonal statemements for additonal data.
+            d3.json("/Project3/Project-3/Data/Census_Data_by_Council_District.json").then(function (x) {
+                var census = x;
+            
+                d3.json("/Project3/Project-3/Data/CouncilMembers.json").then(function (y) {
+                    var members = y;
+            
+                    function getCensusByDistrict(district) {
+                        return census.filter(
+                            function(census) {
+                                return census.District === district
+                            }
+                        );
+                    }
+                    function getMembersByDistrict(district) {
+                        return members.filter(
+                            function(members) {
+                                return members.District === district
+                            }
+                        );
+                    }
+
+                    var foundCensus = getCensusByDistrict(feature.properties.district);
+                    var foundMember = getMembersByDistrict(feature.properties.district);
+
+                    const popUpContent = "<h1>District " + feature.properties.district + "</h1><br><h2>2010 Population: " + foundCensus[0].Pop2010 + "<br>Council Member: " + foundMember[0].Name + "</h2>";
+
+                    // Giving each feature a popup with information that's relevant to it
+                    layer.bindPopup(popUpContent);
+                });
+            });
+            
+        }
+            
     })
 };
 
@@ -51,15 +83,14 @@ function main() {
     }).addTo(map);
     
     let filepath_a = "../../Data/criminal_homicide_2010_2019.json";
-    // let filepath_b = "/Project-3/Data/criminal_homicide_2010_2019.json";
-    // let filepath_c = "/Project3/Project-3/Data/criminal_homicide_2010_2019.json";
+    let filepath_b = "/Project-3/Data/criminal_homicide_2010_2019.json";
+    let filepath_c = "/Project3/Project-3/Data/criminal_homicide_2010_2019.json";
 
-
-    d3.json("../../Data/criminal_homicide_2010_2019.json").then(function (x) {
+    d3.json("/Project3/Project-3/Data/criminal_homicide_2010_2019.json").then(function (x) {
         drawMarkers(x);
         })
     
-    d3.json("../../Data/robbery_2010_2019.json").then(function (x) {
+    d3.json("/Project3/Project-3/Data/robbery_2010_2019.json").then(function (x) {
         drawMarkers(x);
         createMap();
     })
@@ -68,6 +99,7 @@ function main() {
     
 
 function drawMarkers(crimes) {
+    console.log("data passed into drawMarkers", crimes)
     var cases = L.markerClusterGroup();
     var crime_desc = crimes[0]["Crm Cd Desc"];
 
