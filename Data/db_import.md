@@ -11,3 +11,9 @@ mongoimport --type json -d Project3 -c criminal_homicide_2010_2019  --drop --jso
 
 #Robbery Collection into Project3 database
 mongoimport --type json -d Project3 -c robbery_2010_2019  --drop --jsonArray robbery_2010_2019.json
+
+#Council Members into Project3 database
+mongoimport --type csv -d Project3 -c Council_Members --headerline --drop CouncilMembers.csv
+
+#Council Members export file type json
+mongoexport  -d Project3 -c Council_Members --out=CouncilMembers.json  
