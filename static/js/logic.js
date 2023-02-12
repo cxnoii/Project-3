@@ -41,10 +41,10 @@ var overlay = {
             }
             });
             //BindPopup contents via conditonal statemements for additonal data.
-            d3.json("/Project3/Project-3/Data/Census_Data_by_Council_District.json").then(function (x) {
+            d3.json("/../../Data/Census_Data_by_Council_District.json").then(function (x) {
                 var census = x;
             
-                d3.json("/Project3/Project-3/Data/CouncilMembers.json").then(function (y) {
+                d3.json("/../../Data/CouncilMembers.json").then(function (y) {
                     var members = y;
             
                     function getCensusByDistrict(district) {
@@ -65,7 +65,7 @@ var overlay = {
                     var foundCensus = getCensusByDistrict(feature.properties.district);
                     var foundMember = getMembersByDistrict(feature.properties.district);
 
-                    const popUpContent = "<h2>District " + feature.properties.district + "</h2><br><h3>2010 Population: " + foundCensus[0].Pop2010 + "<br>Council Member: " + foundMember[0].Name + "</h3>";
+                    const popUpContent = "<h2>District " + feature.properties.district + "</h2><hr><h3>2010 Population: " + foundCensus[0].Pop2010 + "<br>Council Member: " + foundMember[0].Name + "</h3>";
 
                     // Giving each feature a popup with information that's relevant to it
                     layer.bindPopup(popUpContent);
@@ -86,11 +86,11 @@ function main() {
     let filepath_b = "/Project-3/Data/criminal_homicide_2010_2019.json";
     let filepath_c = "/Project3/Project-3/Data/criminal_homicide_2010_2019.json";
 
-    d3.json("/Project3/Project-3/Data/criminal_homicide_2010_2019.json").then(function (x) {
+    d3.json("/../../Data/criminal_homicide_2010_2019.json").then(function (x) {
         drawMarkers(x);
         })
     
-    d3.json("/Project3/Project-3/Data/robbery_2010_2019.json").then(function (x) {
+    d3.json("/../../Data/robbery_2010_2019.json").then(function (x) {
         drawMarkers(x);
         createMap();
     })
