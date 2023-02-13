@@ -254,7 +254,3 @@ function updatePlotly(newdata) {
 defaultplot();  
 
 }
-
-// init();
-
-var test = d3.select("#pie").append('h4').text("test")
