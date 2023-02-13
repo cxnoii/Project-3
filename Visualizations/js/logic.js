@@ -4,6 +4,10 @@ d3.json('/Project-3/Data/criminal_homicide_2010_2019.json').then(function (x) {
     loops(x)
     })
 
+
+
+function loops(data) {
+
     let male2010 = []
     let female2010 = []
     let male2011 = []
@@ -24,8 +28,6 @@ d3.json('/Project-3/Data/criminal_homicide_2010_2019.json').then(function (x) {
     let female2018 = []
     let male2019 = []
     let female2019 = []
-
-function loops(data) {
 
     for (let index = 0; index < data.length; index++) {
         const crime = data[index];
@@ -110,71 +112,136 @@ function loops(data) {
                         }
                     }
     }
-    console.log(male2010.length)
-    console.log(female2010.length)
-    console.log(male2011.length)
-    console.log(female2011.length)
-    console.log(male2012.length)
-    console.log(female2012.length)
-    console.log(male2013.length)
-    console.log(female2013.length)
-    console.log(male2014.length)
-    console.log(female2014.length)
-    console.log(male2015.length)
-    console.log(female2015.length)
-    console.log(male2016.length)
-    console.log(female2016.length)
-    console.log(male2017.length)
-    console.log(female2017.length)
-    console.log(male2018.length)
-    console.log(female2018.length)
-    console.log(male2019.length)
-    console.log(female2019.length) 
-}
+    // console.log(male2010.length)
+    // console.log(female2010.length)
+    // console.log(male2011.length)
+    // console.log(female2011.length)
+    // console.log(male2012.length)
+    // console.log(female2012.length)
+    // console.log(male2013.length)
+    // console.log(female2013.length)
+    // console.log(male2014.length)
+    // console.log(female2014.length)
+    // console.log(male2015.length)
+    // console.log(female2015.length)
+    // console.log(male2016.length)
+    // console.log(female2016.length)
+    // console.log(male2017.length)
+    // console.log(female2017.length)
+    // console.log(male2018.length)
+    // console.log(female2018.length)
+    // console.log(male2019.length)
+    // console.log(female2019.length) 
 
-let trace1 = {
-    x: male2010,
-    y: female2010,
+function defaultplot() {
+
+let trace1 = [{
+    values: [male2010.length,female2010.length],
+    labels: ['Male','Female'],
     type:"pie"
+}]
+
+let layout = {
+    title:'Male vs Female Homicide Victims',
+    height: 800,
+    width: 1200
 }
 
-let layout2 = {
-    height:600,
-    width:800
+Plotly.newPlot('plot',trace1,layout);
+
 }
-Plotly.newPlot("pie", trace1, layout2);
 
-// function init() {
-//     let data = [{
-//         values: male2010,female2010,
-//         labels: ['Male','Female'],
-//         type:'pie'
-//     }]
-//     let layout = {
-//         height:600,
-//         width:800
-//     }
-//     // updatePlotly.newPlot('pie',data,layout)
-// } 
 
-// d3.selectAll('#selDataset').on('change',getData)
+d3.selectAll('#selDataset').on('change',getData)
 
-// function getData() {
-//     let dropdownMenu = d3.select('#selDataset');
+function getData() {
+    let dropdownMenu = d3.select('#selDataset');
 
-//     let dataset = dropdownMenu.property('value');
+    let dataset = dropdownMenu.property('value');
 
-//     let data = []
+    let data = []
+    if (dataset == '2010') {
+        data = {
+            values: [male2010.length,female2010.length],
+            labels: ['Male','Female'],
+            type:"pie"
+        }
+    }
+    else if (dataset == '2011') {
+        data = {
+            values: [male2011.length,female2011.length],
+            labels: ['Male','Female'],
+            type:"pie"
+        }
+    }
+    else if (dataset == '2012') {
+        data = {
+            values: [male2012.length,female2012.length],
+            labels: ['Male','Female'],
+            type:"pie"
+        }
+    }
+    else if (dataset == '2013') {
+        data = {
+            values: [male2013.length,female2013.length],
+            labels: ['Male','Female'],
+            type:"pie"
+        }
+    }
+    else if (dataset == '2014') {
+        data = {
+            values: [male2014.length,female2014.length],
+            labels: ['Male','Female'],
+            type:"pie"
+        }
+    }
+    else if (dataset == '2015') {
+        data = {
+            values: [male2015.length,female2015.length],
+            labels: ['Male','Female'],
+            type:"pie"
+        }
+    }
+    else if (dataset == '2016') {
+        data = {
+            values: [male2016.length,female2016.length],
+            labels: ['Male','Female'],
+            type:"pie"
+        }
+    }
+    else if (dataset == '2017') {
+        data = {
+            values: [male2017.length,female2017.length],
+            labels: ['Male','Female'],
+            type:"pie"
+        }
+    }
+    else if (dataset == '2018') {
+        data = {
+            values: [male2018.length,female2018.length],
+            labels: ['Male','Female'],
+            type:"pie"
+        }
+    }
+    else if (dataset == '2019') {
+        data = {
+            values: [male2019.length,female2019.length],
+            labels: ['Male','Female'],
+            type:"pie"
+        }
+    }
 
-//     if (dataset == '2010') {
-//         data = [male2010, female2010]
-//     }
-//     updatePlotly(data)
-// }
+    updatePlotly(data)
+}
 
-// function updatePlotly(newdata) {
-//     Plotly.restyle('pie',newdata);
-// }
+function updatePlotly(newdata) {
+    Plotly.restyle('plot','values',[newdata]);
+}
+  
+
+defaultplot();  
+
+}
 
 // init();
 
