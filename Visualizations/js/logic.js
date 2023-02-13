@@ -24,6 +24,7 @@ d3.json('/Project-3/Data/criminal_homicide_2010_2019.json').then(function (x) {
     let female2018 = []
     let male2019 = []
     let female2019 = []
+
 function loops(data) {
 
     for (let index = 0; index < data.length; index++) {
@@ -109,55 +110,70 @@ function loops(data) {
                         }
                     }
     }
-    // console.log(male2010.length)
-    // console.log(female2010.length)
-    // console.log(male2011.length)
-    // console.log(female2011.length)
-    // console.log(male2012.length)
-    // console.log(female2012.length)
-    // console.log(male2013.length)
-    // console.log(female2013.length)
-    // console.log(male2014.length)
-    // console.log(female2014.length)
-    // console.log(male2015.length)
-    // console.log(female2015.length)
-    // console.log(male2016.length)
-    // console.log(female2016.length)
-    // console.log(male2017.length)
-    // console.log(female2017.length)
-    // console.log(male2018.length)
-    // console.log(female2018.length)
-    // console.log(male2019.length)
-    // console.log(female2019.length) 
-}
-function init() {
-    let data = [{
-        values: [male2010.length,female2010.length],
-        labels: ['Male','Female'],
-        type:'pie'
-    }]
-    let layout = {
-        height:600,
-        width:800
-    }
-    updatePlotly.newPlot('pie',data,layout)
-} 
-
-d3.selectAll('#selDataset').on('change',getData)
-
-function getData() {
-    let dropdownMenu = d3.select('#selDataset');
-
-    let dataset = dropdownMenu.property('value');
-
-    let data = []
-
-    if (dataset == '2010') {
-        data = [male2010.length, female2010.length]
-    }
-    updatePlotly(data)
+    console.log(male2010.length)
+    console.log(female2010.length)
+    console.log(male2011.length)
+    console.log(female2011.length)
+    console.log(male2012.length)
+    console.log(female2012.length)
+    console.log(male2013.length)
+    console.log(female2013.length)
+    console.log(male2014.length)
+    console.log(female2014.length)
+    console.log(male2015.length)
+    console.log(female2015.length)
+    console.log(male2016.length)
+    console.log(female2016.length)
+    console.log(male2017.length)
+    console.log(female2017.length)
+    console.log(male2018.length)
+    console.log(female2018.length)
+    console.log(male2019.length)
+    console.log(female2019.length) 
 }
 
-function updatePlotly(newdata) {
-    Plotly.restyle('pie',newdata);
+let trace1 = {
+    x: male2010,
+    y: female2010,
+    type:"pie"
 }
+
+let layout2 = {
+    height:600,
+    width:800
+}
+Plotly.newPlot("pie", trace1, layout2);
+
+// function init() {
+//     let data = [{
+//         values: male2010,female2010,
+//         labels: ['Male','Female'],
+//         type:'pie'
+//     }]
+//     let layout = {
+//         height:600,
+//         width:800
+//     }
+//     // updatePlotly.newPlot('pie',data,layout)
+// } 
+
+// d3.selectAll('#selDataset').on('change',getData)
+
+// function getData() {
+//     let dropdownMenu = d3.select('#selDataset');
+
+//     let dataset = dropdownMenu.property('value');
+
+//     let data = []
+
+//     if (dataset == '2010') {
+//         data = [male2010, female2010]
+//     }
+//     updatePlotly(data)
+// }
+
+// function updatePlotly(newdata) {
+//     Plotly.restyle('pie',newdata);
+// }
+
+// init();
