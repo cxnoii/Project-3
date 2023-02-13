@@ -4,8 +4,6 @@ import json
 
 app = Flask(__name__)
 CORS(app)
-# Homicides = Base.classes.homicides
-# Robberies = Base.classes.robberies
 
 #--------------
 #  Home Page  |
