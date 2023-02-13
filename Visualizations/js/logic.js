@@ -177,3 +177,5 @@ Plotly.newPlot("pie", trace1, layout2);
 // }
 
 // init();
+
+var test = d3.select("#pie").append('h4').text("test")
