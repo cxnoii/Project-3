@@ -135,7 +135,7 @@ function loops(data) {
 
 function defaultplot() {
 
-let trace1 = [{
+let data = [{
     values: [male2010.length,female2010.length],
     labels: ['Male','Female'],
     type:"pie"
@@ -143,11 +143,11 @@ let trace1 = [{
 
 let layout = {
     title:'Male vs Female Homicide Victims',
-    height: 800,
-    width: 1200
+    height: 1000,
+    width: 1400
 }
 
-Plotly.newPlot('plot',trace1,layout);
+Plotly.newPlot('plot',data,layout);
 
 }
 
@@ -235,7 +235,12 @@ function getData() {
 }
 
 function updatePlotly(newdata) {
-    Plotly.restyle('plot','values',[newdata]);
+    let layout2 = {
+        title:'Male vs Female Homicide Victims',
+        height: 1000,
+        width: 1400
+    }
+    Plotly.newPlot('plot',[newdata],layout2);
 }
   
 
