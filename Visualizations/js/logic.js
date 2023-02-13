@@ -1,11 +1,12 @@
 
+//reading the data from the criminal homicide file and passing the data 'x' into the loops function for analysis
 d3.json('/Project-3/Data/criminal_homicide_2010_2019.json').then(function (x) {
     console.log(x);
     loops(x)
     })
 
 
-
+//function that loops through data to populate lists with how many victims of each sex there were per year
 function loops(data) {
 
     let male2010 = []
@@ -29,6 +30,7 @@ function loops(data) {
     let male2019 = []
     let female2019 = []
 
+//loop whichs checks the victim's sex and date occurence for each entry in the dataset
     for (let index = 0; index < data.length; index++) {
         const crime = data[index];
         if (new Date(crime['DATE OCC']) < new Date('01/01/2011 0:00')) {
@@ -112,6 +114,7 @@ function loops(data) {
                         }
                     }
     }
+    //test commands to see if lists were populated
     // console.log(male2010.length)
     // console.log(female2010.length)
     // console.log(male2011.length)
@@ -133,6 +136,7 @@ function loops(data) {
     // console.log(male2019.length)
     // console.log(female2019.length) 
 
+//this function displays our default plot (a pie chart) of the year 2010
 function defaultplot() {
 
 let data = [{
@@ -151,9 +155,10 @@ Plotly.newPlot('plot',data,layout);
 
 }
 
-
+//this line makes calls on the get data function when the user changes options on the dropdown menu
 d3.selectAll('#selDataset').on('change',getData)
 
+//this function contains dropdown menu, and uses dropdown menu selection to change our dataset to the appropriate year selected
 function getData() {
     let dropdownMenu = d3.select('#selDataset');
 
@@ -231,9 +236,11 @@ function getData() {
         }
     }
 
+//passing the data to the function that will update the plot
     updatePlotly(data)
 }
 
+//this function updates the plot by replacing it with a new one using the dataset provided from the getData function
 function updatePlotly(newdata) {
     let layout2 = {
         title:'Male vs Female Homicide Victims',
@@ -243,7 +250,7 @@ function updatePlotly(newdata) {
     Plotly.newPlot('plot',[newdata],layout2);
 }
   
-
+//this calls upon the defaultplot function to run upon opening the html file, showing the 2010 pie chart as the initial pie chart displayed
 defaultplot();  
 
 }
