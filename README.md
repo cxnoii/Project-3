@@ -9,7 +9,7 @@ Tracking Crime data is crucial for law enforcement agencies and citizens. There 
 - History of homicide and robbery reports.
 - Multiple layers based on both categories of crimes in reports.
 - Pie Charts showing male vs female homicide victimes over the years
--
+- Charts showing correlations between population and crime rate
 
 Questions we'll trying to be answer:
 1. Where do we see hot spots of theft or assault? 
