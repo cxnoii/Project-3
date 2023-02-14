@@ -8,7 +8,7 @@ Group participants: Nicholas Dao, Jonathan Rico, Cristian M. Jung, Chika Okam, B
 Tracking Crime data is crucial for law enforcement agencies and citizens. There are many victims living with trauma or even citizens who have fear from becoming victims. The ability to avoid hot spots for crime would be great for civilians, also law enforcement would be able to note where to patrol and keep in check.
 
 <b>Different interactive features include:</b>
-- An overall view of Los Angeles and its districts.
+- An overall view of Los Angeles City and its districts.
 - History of homicide and robbery reports.
 - Multiple layers based on both categories of crimes in reports.
 - Pie Charts showing male vs female homicide victimes over the years
@@ -22,6 +22,7 @@ Questions we'll trying to be answer:
 - https://data.lacity.org/Public-Safety/Crime-Data-from-2010-to-2019/63jg-8b9z/data
 - https://openjustice.doj.ca.gov/exploration/crime-statistics
 - https://en.wikipedia.org/wiki/Los_Angeles_County_District_Attorney
+- https://data.lacity.org/Community-Economic-Development/Census-Data-by-Council-District/
 
 <b>Database/API</b>
 We have used MongoDB for importing and housing our data. Then, we exported it as json.
