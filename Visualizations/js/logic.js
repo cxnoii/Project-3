@@ -1,6 +1,6 @@
 
 //reading the data from the criminal homicide file and passing the data 'x' into the loops function for analysis
-d3.json('/Project-3/Data/criminal_homicide_2010_2019.json').then(function (x) {
+d3.json('http://127.0.0.1:5000/api/homicides').then(function (x) {
     console.log(x);
     loops(x)
     })
@@ -147,8 +147,8 @@ let data = [{
 
 let layout = {
     title:'Male vs Female Homicide Victims',
-    height: 1000,
-    width: 1400
+    height: 600,
+    width: 800
 }
 
 Plotly.newPlot('plot',data,layout);
@@ -235,6 +235,14 @@ function getData() {
             type:"pie"
         }
     }
+    else if (dataset == 'Overall Totals') {
+        data = {
+            values: [(male2010.length+male2011.length+male2012.length+male2013.length+male2014.length+male2015.length+male2016.length+male2017.length+male2018.length+male2019.length
+                ),(female2010.length+female2011.length+female2012.length+female2013.length+female2014.length+female2015.length+female2016.length+female2017.length+female2018.length+female2019.length)],
+            labels: ['Male','Female'],
+            type:'pie'
+        }
+    }
 
 //passing the data to the function that will update the plot
     updatePlotly(data)
@@ -244,13 +252,15 @@ function getData() {
 function updatePlotly(newdata) {
     let layout2 = {
         title:'Male vs Female Homicide Victims',
-        height: 1000,
-        width: 1400
+        height: 600,
+        width: 800
     }
     Plotly.newPlot('plot',[newdata],layout2);
 }
   
 //this calls upon the defaultplot function to run upon opening the html file, showing the 2010 pie chart as the initial pie chart displayed
+
+
 defaultplot();  
 
 }
