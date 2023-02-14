@@ -4,7 +4,38 @@ var map = L.map("map", {
     zoom: 10
 });
 
+//------------The script below is collecting data for our Correlation data
+// var homicidesCount = [];
+// var robberiesCount = [];
+// d3.json("http://127.0.0.1:5000/api/homicides").then(function (x) {
+//     var points = [];
+//     for (var i =0; i<x.length; i++) {
+//         var lat = x[i]["LAT"];
+//         var lng = x[i]["LON"];
+//         points.push([lng, lat])
+//         };
+    
+//     //Debugging purposes:
+//     //var searchWithin = turf.multiPolygon(districts_geojson.features[3].geometry.coordinates)
+//     //var ptsWithin = turf.pointsWithinPolygon(turf.points(points), searchWithin);
+    
+//     console.log("what", points);
+//     homicidesCount.push(countPointsInPolygons(turf.points(points)));
+//     console.log("homicides count", homicidesCount)
+//     });
 
+// d3.json("http://127.0.0.1:5000/api/robberies").then(function (x) {
+//     var points = [];
+//     for (var i =0; i<x.length; i++) {
+//         var lat = x[i]["LAT"];
+//         var lng = x[i]["LON"];
+//         points.push([lng, lat])
+//         };    
+    
+//     robberiesCount.push(countPointsInPolygons(turf.points(points)));
+//     console.log("robberies count", robberiesCount)
+   
+//     })
 
 var overlay = {
     "District Boundaries": L.geoJSON(districts_geojson, {
@@ -41,10 +72,10 @@ var overlay = {
             }
             });
             //BindPopup contents via conditonal statemements for additonal data.
-            d3.json("/../../Data/Census_Data_by_Council_District.json").then(function (x) {
+            d3.json("/Project3/Project-3/Data/Census_Data_by_Council_District.json").then(function (x) {
                 var census = x;
             
-                d3.json("/../../Data/CouncilMembers.json").then(function (y) {
+                d3.json("/Project3/Project-3/Data/CouncilMembers.json").then(function (y) {
                     var members = y;
             
                     function getCensusByDistrict(district) {
@@ -94,7 +125,7 @@ function main() {
         drawMarkers(x);
         createMap();
     })
-
+    
     }
     
 
@@ -121,6 +152,19 @@ function drawMarkers(crimes) {
     // adds layer to overlay dictionary 
     overlay[crime_desc] = cases;
 }
+
+//Looping through each object for data counts
+function countPointsInPolygons(points) {
+    let countsArray = [];
+    let polygonFeaturesArray = districts_geojson.features;
+    for (let i = 0; i < polygonFeaturesArray.length; i++) {
+      let iGeometry = turf.multiPolygon(polygonFeaturesArray[i].geometry.coordinates);
+      let pointsWithinPolygon1 = turf.pointsWithinPolygon(points, iGeometry);
+      iGeometry.properties.count = pointsWithinPolygon1.features.length;
+      countsArray.push(pointsWithinPolygon1);
+    }
+    return countsArray;
+  }
 
 //function that will differentiate the districts in the map
 function chooseColor(district) {
