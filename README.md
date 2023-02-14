@@ -35,7 +35,10 @@ We created a map with the following layers
   -Homicide Incidents
   -Robbery Incidents
   
- We used Turf.js to collect data for our linear regression analysis
+ <b>Turf.js</b>
+ -We used Turf.js to collect data for our linear regression analysis.
+ -This JS library was used in order to determine which crimes occured in each district; the dataset did not contain a district for each crime.
+ -The function within the library uses the case's [LAT,LNG] and checks if that point is within the district's geojson boundary.
  
  <b>Visualization</b>
  Pie Charts: Gender of Victims throughtout the years.
