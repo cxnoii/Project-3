@@ -114,8 +114,8 @@ function main() {
     }).addTo(map);
     
     let filepath_a = "../../Data/criminal_homicide_2010_2019.json";
-    let filepath_b = "/Project-3/Data/criminal_homicide_2010_2019.json";
-    let filepath_c = "/Project3/Project-3/Data/criminal_homicide_2010_2019.json";
+    // let filepath_b = "/Project-3/Data/criminal_homicide_2010_2019.json";
+    // let filepath_c = "/Project3/Project-3/Data/criminal_homicide_2010_2019.json";
 
     d3.json("http://127.0.0.1:5000/api/homicides").then(function (x) {
         drawMarkers(x);
