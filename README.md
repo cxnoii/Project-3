@@ -14,7 +14,7 @@ Tracking Crime data is crucial for law enforcement agencies and citizens. There 
 - Pie Charts showing male vs female homicide victimes over the years
 - Charts showing correlations between population and crime rate
 
-Questions we'll trying to be answer:
+Questions we will be trying to answer:
 1. Where do we see hot spots of theft or assault? 
 2. How safe is the planned destination and what should one be wary of?
 
